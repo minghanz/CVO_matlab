@@ -1,5 +1,9 @@
 function [prod, grad2_vec] = inner_prod(xy1, xy2, l)
-% 2*n1, 2*n2
+% Calculate inner product of two point cloud 
+% <pcl1, pcl2> = \sum_{i\in pcl1} \sum_{j\in pcl2} k(p_i, p_j)
+% where k(p_i, p_j) = exp(-2*||p_i - p_j||_2^2/(2*l^2))
+
+%% Input size: 2*n1, 2*n2
 num1 = size(xy1, 2);
 num2 = size(xy2, 2);
 dim = size(xy1, 1);
