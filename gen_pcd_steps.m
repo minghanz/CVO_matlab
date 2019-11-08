@@ -1,4 +1,4 @@
-function [x1, y1] = gen_pcd_steps(n_pt, x0, y0, seg_w, k)
+function [x1, y1, f1] = gen_pcd_steps(n_pt, x0, y0, seg_w, k)
 % For generating 2d point cloud of shape
 %     ___     ___
 % ___|   |___|   |___
@@ -7,6 +7,7 @@ function [x1, y1] = gen_pcd_steps(n_pt, x0, y0, seg_w, k)
 inc = 0.1;
 x1 = zeros(1, n_pt);
 y1 = zeros(1, n_pt);
+f1 = zeros(1, n_pt);
 x1(1) = x0 + k*inc;
 y1(1) = y0;
 i = 2;
@@ -30,6 +31,12 @@ while i <= n_pt
 
     if mod(k, seg_w) == 0
         i_cycle = i_cycle + 1;
+    end
+    
+    if mod(k, seg_w) >= seg_w - 2 
+        f1(i) = 1;
+    elseif mod(k, seg_w) <= 2
+        f1(i) = -1;
     end
     i = i + 1;
     k = k + 1;

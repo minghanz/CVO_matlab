@@ -1,4 +1,4 @@
-function [pcd1, pcd2] = generate_pcd(opt)
+function [pcd1, pcd2, f1, f2] = generate_pcd(opt)
 
 if opt == 1
     % piecewise line
@@ -20,9 +20,9 @@ elseif opt == 3
     n_pt = 200;
     seg_w = 20;
     k = 0;
-    [x1, y1] = gen_pcd_steps(n_pt, 0, 0, seg_w, k);
+    [x1, y1, f1] = gen_pcd_steps(n_pt, 0, 0, seg_w, k);
     k = 10;
-    [x2, y2] = gen_pcd_steps(n_pt, 0, 0, seg_w, k);
+    [x2, y2, f2] = gen_pcd_steps(n_pt, 0, 0, seg_w, k);
 end
 
 pcd1 = [x1; y1]; % 2*N

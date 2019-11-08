@@ -1,4 +1,4 @@
-function [prod, grad2_vec] = inner_prod(xy1, xy2, l)
+function [prod, grad2_vec, grad2_vec_total] = inner_prod(xy1, xy2, l, f1, f2)
 % Calculate inner product of two point cloud 
 % <pcl1, pcl2> = \sum_{i\in pcl1} \sum_{j\in pcl2} k(p_i, p_j)
 % where k(p_i, p_j) = exp(-2*||p_i - p_j||_2^2/(2*l^2))
@@ -15,7 +15,7 @@ f_d = @(d)exp(-d^2/(2*l^2));
 f_x = @(x1, x2)f_d(norm(x1-x2));
 for i = 1:num1
     for j = 1:num2
-        k(i,j) = f_x(xy1(:,i), xy2(:,j));
+        k(i,j) = f1(i) * f2(j) * f_x(xy1(:,i), xy2(:,j));
         grad2(i,j,:) = xy1(:,i) - xy2(:,j);
     end
 end
@@ -29,4 +29,5 @@ for j = 1:num2
         grad2_vec(:, j) = s;
     end
 end
+grad2_vec_total = sum(grad2_vec, 2);
 return
